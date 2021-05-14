@@ -82,6 +82,8 @@ while True:
                 log.exception("Error parsing {}".format(permalink))
         #Wait one hour before getting the submissions again
         sleep(3600)
+        #Then update the submissions that are already posted
+        last_sub_ids = prev_submissions()
     except Exception as e:
         log.exception("Error fetching new submissions, restarting in 10 secs")
         sleep(10)
