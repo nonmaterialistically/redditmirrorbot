@@ -1,0 +1,11 @@
+{
+    "reddit": {
+        "client_id": "REDDIT CLIENT ID HERE",
+        "client_secret": "REDDIT CLIENT SECRET HERE",
+        "subreddit": "todayilearned"
+    },
+    "telegram":{
+        "token": "TELEGRAM TOKEN HERE",
+        "channel_id": "CHAT ID WHERE THE BOT WILL POST HERE"
+    }
+}
