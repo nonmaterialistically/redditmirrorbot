@@ -59,7 +59,7 @@ else:
 while True:
     try:
         #Get the top 5 hot submissions
-        for submission in subreddit.hot(limit=5):
+        for submission in subreddit.hot(limit=10):
             try:
                 #Only post the link if it wasn't posted before
                 if submission.id in last_sub_ids:
@@ -80,6 +80,7 @@ while True:
                 write_submissions(submission.id)
             except Exception as e:
                 log.exception("Error parsing {}".format(permalink))
+        #Wait one hour before getting the submissions again
         sleep(3600)
     except Exception as e:
         log.exception("Error fetching new submissions, restarting in 10 secs")
