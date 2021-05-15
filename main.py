@@ -52,7 +52,10 @@ def write_submissions(sub_id):
 last_sub_ids = prev_submissions()
 
 if not last_sub_ids:
+    #Create the submissions file if not present
     log.info("Latest submissions file not found, starting from scratch")
+    with open('prev_submissions.id', 'w') as f:
+        f.close()
 else:
     log.info("Last posted submission is {}".format(last_sub_ids[-1]))
 
@@ -61,10 +64,12 @@ while True:
         #Get the top 5 hot submissions
         for submission in subreddit.hot(limit=10):
             try:
-                #Only post the link if it wasn't posted before
-                if submission.id in last_sub_ids:
-                    log.info("Skipping {id} --- already posted!".format(id=submission.id))
-                    continue
+                #When we start from scratch, the prev_submissions.id file will be empty. Make sure we skip checking for past submissions and go directly to posting the first link
+                if last_sub_ids is not None:
+                    #Only post the link if it wasn't posted before
+                    if submission.id in last_sub_ids:
+                        log.info("Skipping {id} --- already posted!".format(id=submission.id))
+                        continue
                 #Get the needed fields and get the message ready
                 permalink = "https://redd.it/{id}".format(id=submission.id)
                 source = html.escape(submission.url or '')
